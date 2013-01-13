@@ -9,6 +9,6 @@
     {% endfor %}
 
     <p>Сумма:</p>{{ cart.total }} руб.
-    {% trans "Hello" %}
+    <a href="{% url pizza.views.create_order %}">Перейти к заказу</a>
 
 {% endblock %}
