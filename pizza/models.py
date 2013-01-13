@@ -81,10 +81,10 @@ class PizzaLogEntry(models.Model):
         verbose_name = 'Log Entry'
 
 
-@receiver(post_save)
-def order_post_save(sender, instance, **kwargs):
-    if sender != PizzaLogEntry:
-        PizzaLogEntry.objects.create(
-            object_id = instance.id, 
-            content_type = ContentType.objects.get_for_model(sender))
+#@receiver(post_save)
+#def order_post_save(sender, instance, **kwargs):
+#    if sender != PizzaLogEntry:
+#        PizzaLogEntry.objects.create(
+#            object_id = instance.id, 
+#            content_type = ContentType.objects.get_for_model(sender))
     

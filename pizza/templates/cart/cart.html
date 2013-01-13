@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<h1>{% trans "Ваша корзина" %}</h1>
+
+    {% for cartitem in cart.items.all %}
+        <p>{{ cartitem }} - {{ cartitem.quantity }} шт.</p>
+    {% endfor %}
+
+    <p>Сумма:</p>{{ cart.total }} руб.
+    {% trans "Hello" %}
+
+{% endblock %}

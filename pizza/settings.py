@@ -125,6 +125,7 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
     'pizza',
+    'cart',
     'south',
     'django_extensions',
     'crispy_forms',
@@ -138,6 +139,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'sorl.thumbnail',
 )
 
 PIZZA_RECIPIENT_LIST = ['boriskin@adwz.ru']
@@ -151,15 +153,15 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
+    #'filters': {
+    #    'require_debug_false': {
+    #        '()': 'django.utils.log.RequireDebugFalse'
+    #    }
+    #},
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
-            'filters': ['require_debug_false'],
+            #'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         }
     },
