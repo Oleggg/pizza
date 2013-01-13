@@ -8,9 +8,12 @@ from django.utils.timezone import now
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.generic import GenericForeignKey
 
+from decimal import Decimal
+
 class Pizza(models.Model):
     name = models.CharField(_('Name'), max_length=255, default='')
     components = models.ManyToManyField('Component', null=True, blank=True)
+    price = models.DecimalField(_('Price'), max_digits = 30, decimal_places = 2, default = Decimal('0.0') )
 
     class Meta:
         verbose_name = _('Pizza')

@@ -115,7 +115,7 @@ def add_product(request, *args, **kwargs):
     data = json.dumps({
         'quantity': cart.count,
         #'total_cost': cost,
-        'total_cost': str(cost)
+        'total_cost': str(cart.total)
     })
     return HttpResponse(data, content_type='application/json')
 

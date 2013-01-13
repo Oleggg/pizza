@@ -30,7 +30,7 @@ class Cart(models.Model):
 
     @property
     def total(self):
-        totalCost = 0.00
+        totalCost = 0
         print 'totalCost '
         print self.items.all()
         for item in self.items.all():
@@ -38,7 +38,7 @@ class Cart(models.Model):
             print item.product.price
             totalCost += (item.product.price * item.quantity) 
         print totalCost
-        return totalCost
+        return "%.2f" % float(totalCost)
 
     @property
     def count(self):
