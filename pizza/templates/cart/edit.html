@@ -32,11 +32,13 @@
             {{ form.id }}
             {{ form.instance.product.name }}
             <div class="form-row">
-                {{ form.quantity.label_tag }}
-                {{ form.quantity }}
+                {{ form.quantity.label_tag }}{{ form.quantity }}
                 {{ form.quantity.errors }}
             </div>
         {% endfor %}
+    <div class="form-row">
+        Общая сумма:{{ form.instance.total }} руб.   
+    </div><br />
     <input type="submit" value="Submit" class="btn">
     <!--p>Сумма:</p> cart.total }} руб.-->
 </form>

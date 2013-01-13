@@ -1,4 +1,5 @@
-
+#coding: utf-8
+from __future__ import unicode_literals
 from django.db import models
 from django import forms
 from django.forms.models import modelformset_factory
@@ -22,7 +23,7 @@ class CartForm(forms.ModelForm):
 class CartItemForm(forms.ModelForm):
 
     #pk = forms.CharField(label = 'PK', required=True )
-    quantity = forms.CharField(label = 'Quantity', required=False )
+    quantity = forms.IntegerField(label = u'Количество', required=False )
 
     class Meta:
         model = CartItem

@@ -7,6 +7,6 @@ urlpatterns = patterns('',
     #url(r'^cart', views.cart),
     url(r'^$', views.cart),
     url(r'^cart/add/$', views.add_product),
-    url(r'^cart/clear/', views.clear_cart),
+    url(r'^clear/', views.clear_cart),
     url('^edit/(?P<pk>[\w-]+)$' , CartUpdateView.as_view(), name='cart-edit'),
 )

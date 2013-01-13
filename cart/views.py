@@ -69,6 +69,7 @@ class CartUpdateView(UpdateView):
             cart_form.instance = self.object
             cart_form.save()
             return HttpResponseRedirect('/cart/')
+            #return HttpResponseRedirect('/cart/edit/' + int(form.instance.pk))
         else:
             return self.render_to_response(self.get_context_data(form=form))
 

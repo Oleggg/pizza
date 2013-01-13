@@ -37,7 +37,7 @@
         <td><form method="post" action="{% url cart.views.add_product %}" class="add_to_cart">{% csrf_token %}
             <input type="hidden" name="add_pizza_id" value="{{ pizza.id }}">
             <input type="hidden" name="quantity" value="1">
-            <input type="submit" value="Add to cart">
+            <input type="submit" value="Add to cart" class="btn">
         </form></td>
     <!--/li-->
     </tr>

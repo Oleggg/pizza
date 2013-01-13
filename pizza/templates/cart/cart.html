@@ -9,6 +9,11 @@
     {% endfor %}
 
     <p>Сумма:</p>{{ cart.total }} руб.
-    <a href="{% url pizza.views.create_order %}">Перейти к заказу</a>
+    <form method="post" action="{% url pizza.views.create_order %}" class="add_to_cart">
+        {% csrf_token %}
+        <input type="hidden" name="pk" value="{{ cart.pk }}">
+        <input type="submit" value="Перейти к заказу" class="btn">
+    </form>
+        <a href="{% url pizza.views.create_order %}">Перейти к заказу</a>
 
 {% endblock %}
