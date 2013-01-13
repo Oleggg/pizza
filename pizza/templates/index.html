@@ -3,7 +3,7 @@
 {% block title %}Was Mayans right?{% endblock %}
 
 {% block content %}
-<a href="{% url 'Order' %}">Order pizza</a>
+<a href="{% url pizza.views.create_order %}">Order pizza</a>
 
 <ul class="unstyled">
     {% for pizza in pizza_list %}
