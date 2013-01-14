@@ -24,7 +24,7 @@
     });
 </script>
 
-<a href="{% url pizza.views.create_order %}">Order pizza</a>
+<!--a href="{ url pizza.views.create_order %}">Order pizza</a-->
 
 <table class="table">
 <!--ul class="unstyled"-->
@@ -32,8 +32,9 @@
     <!--li-->
     <tr>  
         <td>{{ pizza.name }}</td>
-        <td>{{ pizza.id }}</td>
-        <td><a href="{% url cart.views.add_product %}">Add to cart</a></td>
+        <!--td>{{ pizza.id }}</td-->
+        <td>Цена: {{ pizza.price }} руб.</td>
+        <!--td><a href="{ url cart.views.add_product }">Add to cart</a></td-->
         <td><form method="post" action="{% url cart.views.add_product %}" class="add_to_cart">{% csrf_token %}
             <input type="hidden" name="add_pizza_id" value="{{ pizza.id }}">
             <input type="hidden" name="quantity" value="1">

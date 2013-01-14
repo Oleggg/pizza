@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load staticfiles crispy_forms_tags pizza_tags %}
 {% load url from future %}
+{% load cart_tags %}
 <html>
 <head>
 <title>{% block title %}Hello world{% endblock %}</title>
@@ -19,8 +20,9 @@
             <div class="container">
             <a class="brand" href="/">Pizza</a>
             <ul class="nav">
-                <li><a href="/order">Order pizza</a></li>
-                <li><a href="/cart">Корзина ( продуктов: <span id="total_count">0</span> на сумму: <span id="total_cost">0.00</span> руб. )</a></li>
+                <li><a href="/order">Заказ пиццы</a></li>
+                <li><a href="/cart">Корзина ( продуктов: <span id="total_count">{{cartt.count}}</span> на сумму: <span id="total_cost">{{cartt.total}}</span> руб. )</a></li>
+                {{cartt}}
             </ul>
             </div>
         </div>

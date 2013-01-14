@@ -68,14 +68,15 @@ class CartUpdateView(UpdateView):
             self.object = form.save()
             cart_form.instance = self.object
             cart_form.save()
-            return HttpResponseRedirect('/cart/')
-            #return HttpResponseRedirect('/cart/edit/' + int(form.instance.pk))
+            return HttpResponseRedirect('/cart/edit/' + str(form.instance.pk))
         else:
             return self.render_to_response(self.get_context_data(form=form))
 
     def form_invalid(self, form):
         print '########  FORM INVALID ########'
         return self.render_to_response(self.get_context_data(form=form))
+
+edit = CartUpdateView.as_view()
 
 #def cart(self, request, *args, **kwargs):
 def cart(request):
@@ -121,6 +122,7 @@ def add_product(request, *args, **kwargs):
     return HttpResponse(data, content_type='application/json')
 
 def get_session_cart(request):
+    print 'CALLED get_session_cart'
     cart = None
     session = getattr(request, 'session', None)
     cid = session.get('CART_ID')

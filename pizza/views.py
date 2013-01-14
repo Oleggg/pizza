@@ -32,6 +32,10 @@ class CreateOrderView(CreateView):
     template_name = 'order.html'
     success_url = reverse_lazy('home')
 
+    #################################
+    def post(self, request, **kwargs):
+        return http.HttpResponse("Post")
+
     def get_form_kwargs(self):
         kwargs = super(CreateOrderView, self).get_form_kwargs()
         kwargs.update({

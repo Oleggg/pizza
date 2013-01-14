@@ -9,9 +9,6 @@
     {% endfor %}
 
     <p>Сумма:</p>{{ cart.total }} руб.
-    <form method="get" action="edit/{{ cart.pk }}" class="add_to_cart">
-        <input type="submit" value="Редактировать корзину" class="btn">
-    </form>
     <form method="post" action="{% url pizza.views.create_order %}" class="add_to_cart">
         {% csrf_token %}
         <input type="hidden" name="pk" value="{{ cart.pk }}">
