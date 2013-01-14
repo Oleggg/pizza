@@ -7,11 +7,14 @@ from .models import Pizza, Order, Deliveryman
 from django.http import Http404
 from django import forms
 from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from django.core.urlresolvers import reverse_lazy
 from .forms import OrderForm
+
+from cart.models import Cart
 
 class PizzaListView(ListView):
     model = Pizza
@@ -33,7 +36,29 @@ class CreateOrderView(CreateView):
     success_url = reverse_lazy('home')
 
     #################################
-    def post(self, request, **kwargs):
+    def get_initial(self):
+        print 'CALLED get_initial' 
+        # Get the initial dictionary from the superclass method
+        initial = super(CreateOrderView, self).get_initial()
+        # Copy the dictionary so we don't accidentally change a mutable dict
+    #    initial = initial.copy()
+        #cart = get_object_or_404(Cart, pk=self.kwargs[u'pk'])
+        #initial['user'] = self.request.user.pk
+           # etc...
+        return initial
+
+    """def get_form(self, form_class):
+        print 'CALLED get_form'
+        form_class = self.get_form_class()
+        print form_class
+        form = super(CreateOrderView, self).get_form(form_class)
+        #course = get_object_or_404(Class, pk=self.kwargs['pk'])
+        #cart = get_object_or_404(Cart, pk=self.kwargs['pk'])
+        #print '############ CART ###########'
+        #print cart
+        #form.instance.course = course
+        return form"""
+    """def post(self, request, **kwargs):
         return http.HttpResponse("Post")
 
     def get_form_kwargs(self):
@@ -41,7 +66,7 @@ class CreateOrderView(CreateView):
         kwargs.update({
             'request': self.request
         })
-        return kwargs
+        return kwargs"""
 
     def form_valid(self, form):
         if form.is_valid() and form.formset.is_valid():

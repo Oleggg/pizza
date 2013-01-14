@@ -59,17 +59,3 @@ class CartItem(models.Model):
     def __unicode__(self):
         return self.product.name
 
-class ManagerOrder(models.Manager):
-
-    def create_from_cart(self, request):
-        cart = get_session_cart(request)
-        order = self.model()
-        order.save()
-        for cart_item in cart.items:
-            oitem = OrderItem()
-            oitem.pizza = cart_item.product
-            oitem.quantity = cart_item.quantity
-            oitem.order = order
-            oitem.save()
-        return order
-    

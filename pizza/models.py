@@ -8,6 +8,8 @@ from django.utils.timezone import now
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.generic import GenericForeignKey
 
+#from cart.models import Cart
+
 from decimal import Decimal
 
 class Pizza(models.Model):
@@ -43,6 +45,27 @@ class Deliveryman(models.Model):
     def __unicode__(self):
         return self.name
 
+class ManagerOrder(models.Manager):
+
+    def create_from_cart(self, request):
+        cart = None
+        session = getattr(request, 'session', None)
+        cid = session.get('CART_ID')
+        if cid:
+            cart = Cart.objects.get(pk = cid)
+        #return cart
+        #################################
+        #cart = get_session_cart(request)
+        order = self.model()
+        order.save()
+        for cart_item in cart.items:
+            oitem = OrderItem()
+            oitem.pizza = cart_item.product
+            oitem.quantity = cart_item.quantity
+            oitem.order = order
+            oitem.save()
+        return order
+
 class Order(models.Model):
     MOSCOW, WARSAW, PENZA, IRKUTSK = range(4)
     CITIES = (
@@ -55,6 +78,8 @@ class Order(models.Model):
         choices = CITIES, default=PENZA)
     address = models.TextField(_('Address'), default='', blank=True)
     deliveryman = models.ForeignKey(Deliveryman, blank=True, null=True)
+
+    objects = ManagerOrder()
 
     class Meta:
         verbose_name = 'Order'

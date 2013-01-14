@@ -87,7 +87,8 @@ def cart(request):
     cart = get_cart(request)
     print cart.pk
     #print cart.items.all()
-    return render_to_response("cart/cart.html", {'cart': cart} )
+    return render_to_response("cart/cart.html", {'cart': cart}, context_instance=RequestContext(request) )
+    #return render_to_response("cart/cart.html", {'cart': cart, 'RequestContext': RequestContext(request) }, context_instance=RequestContext(request) )
 
 def edit(request):
     self.formset = OrderItemFormset()
