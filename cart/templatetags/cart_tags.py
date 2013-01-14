@@ -11,14 +11,14 @@ register = Library()
 #@register.inclusion_tag('templatetags/cart_tag.html', takes_context=True)
 @register.inclusion_tag('templatestags/cart_tag.html', takes_context=True)
 def cart_tag(context):
-    print 'CALLED cart_tag'
-    print context['request']
-    session = getattr(request, 'session', None)
-    print 'SESSION: '
-    print session['CART_ID']
-    request = context['request']
-    print request.session['CART_ID']
-    cart = get_session_cart(context['request'])
+    #print 'CALLED cart_tag'
+    #print context['request']
+    #session = getattr(request, 'session', None)
+    #print 'SESSION: '
+    #print session['CART_ID']
+    #request = context['request']
+    #print request.session['CART_ID']
+    #cart = get_session_cart(context['request'])
     return {'cartt': 'CART'}
 
 """class Cart(InclusionTag):
