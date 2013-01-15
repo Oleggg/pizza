@@ -13,11 +13,11 @@
 
 <div class="container">
 
-    {% for cartitem in cart.items.all %}
-        <p>{{ cartitem }} - {{ cartitem.quantity }} шт.</p>
-    {% endfor %}
+    <!--{ for cartitem in cart.items.all %}
+        <p>{ cartitem }} - { cartitem.quantity }} шт.</p>
+    { endfor %}
 
-    <p>Сумма:</p>{{ cart.total }} руб.
+    <p>Сумма:</p> cart.total }} руб.-->
 
 
 <form id="cart_form" class="well" method="POST" action="{% url cart-edit cart.pk %}">
@@ -26,20 +26,20 @@
     {{ form.title }}
     {{ form.title.errors }}
     <!--label for="id_name">Cart Name</label-->
-    <!--input type="text" name="name" id="id_name"-->
     {{ cart_formset.management_form }}
         {% for form in cart_formset.forms %}
             {{ form.id }}
-            {{ form.instance.product.name }}
+            <b>{{ form.instance.product.name }}</b>
             <div class="form-row">
                 {{ form.quantity.label_tag }}{{ form.quantity }}
                 {{ form.quantity.errors }}
             </div>
         {% endfor %}
     <div class="form-row">
-        Общая сумма:{{ form.instance.total }} руб.   
+        Общая сумма: <b>{{ form.instance.total }} руб.</b>
     </div><br />
     <input type="submit" value="Обновить корзину" class="btn">
+    <input type="button" onClick="location.href='/order'" value="Перейти к заказу" class="btn">
     <!--p>Сумма:</p> cart.total }} руб.-->
 </form>
 

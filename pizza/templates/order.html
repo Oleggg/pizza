@@ -13,16 +13,16 @@
         {{ form.formset|crispy }}
         {{ form|crispy }}
 
-        {{ form.formset.management_form }}
-        {% for iform in form.formset.forms %}
-            {{ form.id }}
-            {{ form.instance.product.name }}
+        <!--{ form.formset.management_form }}
+        { for iform in form.formset.forms %}
+            { form.id }}
+            { form.instance.product.name }}
             <div class="form-row">
-                {{ iform.quantity.label_tag }}
-                {{ iform.quantity }}
-                {{ iform.quantity.errors }}
+                { iform.quantity.label_tag }}
+                { iform.quantity }}
+                { iform.quantity.errors }}
             </div>
-        {% endfor %}
+        { endfor %}-->
 
         <input type="submit" /> 
     </form>

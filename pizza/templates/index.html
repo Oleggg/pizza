@@ -18,8 +18,11 @@
         });*/
         $('.add_to_cart').ajaxForm(function(data) {
             //
-            $('#total_count').html(data.quantity);
-            $('#total_cost').html(data.total_cost);
+            $('#cart_info').fadeOut('fast',function() {
+                $('#total_count').html(data.quantity);
+                $('#total_cost').html(data.total_cost);
+                $('#cart_info').fadeIn('fast');
+            });
         });
     });
 </script>

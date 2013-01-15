@@ -25,8 +25,8 @@ class OrderForm(forms.ModelForm):
         self.helper.add_input(Submit('', 'Submit'))
         if request.method == 'POST':
             self.formset = OrderItemFormset(request.POST)
-        #else:
-        #    self.formset = OrderItemFormset()
+        else:
+            self.formset = OrderItemFormset()
         #    self.formset = self.context['formset']
 
     def save(self, *args, **kwargs):

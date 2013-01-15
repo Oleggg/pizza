@@ -30,6 +30,6 @@
         <input type="hidden" name="pk" value="{{ cart.pk }}">
         <input type="submit" value="Перейти к заказу" class="btn">
     </form-->
-        <a href="{% url pizza.views.create_order %}">Перейти к заказу</a>
-
+        <!--a href="{% url pizza.views.create_order %}">Перейти к заказу</a-->
+        <input type="button" onClick="location.href='/order'" value="Перейти к заказу" class="btn">
 {% endblock %}

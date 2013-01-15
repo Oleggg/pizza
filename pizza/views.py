@@ -112,7 +112,7 @@ class CreateOrderView(CreateView):
         else:
             context_data['formset'] = OrderItemFormset()
         print "||||||||||||||| SELF.object ||| "
-        print context_data
+        print context_data['formset'] 
         return context_data
 
     """def post(self, request, **kwargs):
