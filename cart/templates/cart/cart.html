@@ -1,16 +1,29 @@
-{% extends "base.html" %}
+{% extends "base1.html" %}
 {% load i18n %}
 
 {% block content %}
+<script type="text/javascript">
+    /*$(document).ready(function(){
+        $('.clr_cart').ajaxForm(function(data) {
+            //
+            $('#total_count').html(data.quantity);
+            $('#total_cost').html(data.total_cost);
+        });
+    });*/
+</script>
+
 <h2>{% trans "Ваша корзина" %}</h2>
 
     {% for cartitem in cart.items.all %}
         <p>{{ cartitem }} - {{ cartitem.quantity }} шт.</p>
     {% endfor %}
 
-    <p>Сумма:</p>{{ cart.total }} руб.
+    <h4><p>Сумма: {{ cart.total }} руб.</p></h4>
     <form method="get" action="edit/{{ cart.pk }}" class="add_to_cart">
         <input type="submit" value="Редактировать корзину" class="btn">
+    </form>
+    <form method="get" action="clear" class="clr_cart">
+        <input type="submit" value="Очистить корзину" class="btn">
     </form>
     <!--form method="post" action="{% url pizza.views.create_order %}" class="add_to_cart">
         {% csrf_token %}

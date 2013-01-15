@@ -4,6 +4,7 @@ from django import template
 
 from cart.models import Cart
 from cart.views import get_session_cart
+from cart.views import get_cart
 
 #register = Library()
 register = template.Library()
@@ -19,6 +20,7 @@ def cart_info(context):
     request = context['request']
     #print request.session['CART_ID']
     cart = get_session_cart(context['request'])
+    #cart = get_cart(context['request'])
     return {'cart_object': cart}
 
 """class Cart(InclusionTag):

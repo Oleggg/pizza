@@ -78,6 +78,7 @@ class Order(models.Model):
         choices = CITIES, default=PENZA)
     address = models.TextField(_('Address'), default='', blank=True)
     deliveryman = models.ForeignKey(Deliveryman, blank=True, null=True)
+    cost = models.DecimalField(_('Cost'), max_digits = 30, decimal_places = 2, default = Decimal('0.0') )
 
     objects = ManagerOrder()
 
