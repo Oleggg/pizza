@@ -42,15 +42,9 @@ class CreateOrderView(CreateView):
     success_url = reverse_lazy('home')
 
     def get(self, request, **kwargs):
-        print '### CALLED GET ###'
-        #self.object = User.objects.get(username=self.request.user)
         cart = get_session_cart(self.request)
-        print '############ CART ###########'
-        print cart
         if cart:
             order = create_from_cart(cart)
-            print '############ ORDER ###########'
-            print order
             self.object = order
         else:
             self.object = None
@@ -59,66 +53,13 @@ class CreateOrderView(CreateView):
         context = self.get_context_data(object=self.object, form=form)
         return self.render_to_response(context)
 
-    #def get(self, request, **kwargs):
-        #self.object = User.objects.get(username=self.request.user)
-        #form_class = self.get_form_class()
-        #form = self.get_form(form_class)
-        #context = self.get_context_data()
-        #return self.render_to_response(context)
-
-    #def get_initial(self):
-    #    print 'CALLED get_initial' 
-        # Get the initial dictionary from the superclass method
-    #    initial = super(CreateOrderView, self).get_initial()
-        # Copy the dictionary so we don't accidentally change a mutable dict
-    #    initial = initial.copy()
-        #cart = get_object_or_404(Cart, pk=self.kwargs[u'pk'])
-        #initial['user'] = self.request.user.pk
-           # etc...
-    #    return initial
-
-    """def get_object(self, queryset=None):
-        print 'CALLED GET_object'
-        cart = get_session_cart(self.request)
-        print '############ CART ###########'
-        print cart
-        order = create_from_cart(cart)
-        print '############ ORDER ###########'
-        print order
-        return order"""
-
-    """def get_form(self, form_class):
-        print 'CALLED get_form'
-        form_class = self.get_form_class()
-        #print form_class
-        form = super(CreateOrderView, self).get_form(form_class)
-        #course = get_object_or_404(Class, pk=self.kwargs['pk'])
-        #cart = get_object_or_404(Cart, pk=self.kwargs['pk'])
-        cart = get_session_cart(self.request)
-        print '############ CART ###########'
-        print cart
-        order = create_from_cart(cart)
-        print '############ ORDER ###########'
-        print order
-        #form.instance.course = course
-        form.instance.order = order
-        return form"""
-
     def get_context_data(self, *args, **kwargs):
         context_data = super(CreateOrderView, self).get_context_data(*args, **kwargs)
-        #context_data.update({'order': self.order})
-        #print "||||||||||||||| SELF.object ||| "
-        #print self.object.orderitem_set.all()
         if self.object:
             context_data['formset'] = get_order_formset(items=self.object.orderitem_set.all())
         else:
             context_data['formset'] = OrderItemFormset()
-        print "||||||||||||||| SELF.object ||| "
-        print context_data['formset'] 
         return context_data
-
-    """def post(self, request, **kwargs):
-        return http.HttpResponse("Post")"""
 
     def get_form_kwargs(self):
         kwargs = super(CreateOrderView, self).get_form_kwargs()
@@ -139,13 +80,9 @@ class CreateOrderView(CreateView):
 
 create_order = CreateOrderView.as_view()
 
-#def create_from_cart(self, request):
 def create_from_cart(cart):
-    #cart = get_session_cart(request)
-    #order = self.model()
     order = Order()
     order.cost = cart.total
-    #order.address = 'Sample address'
     order.save()
     for cart_item in cart.items.all():
         oitem = OrderItem()
@@ -177,13 +114,6 @@ class CreateOrderFromCartView(CreateView):
     template_name = 'cart_order.html'
     form_class = OrderFromCartForm
     model = Order
-
-    #def get(self, request, **kwargs):
-    #    self.object = Cart.objects.get(pk=self.kwargs['pk'])
-    #    form_class = self.get_form_class()
-    #    form = self.get_form(form_class)
-    #    context = self.get_context_data(object=self.object, form=form)
-    #    return self.render_to_response(context)
 
     def get_context_data(self, **kwargs):
         #cart = Cart.objects.get(pk=self.kwargs['pk'])

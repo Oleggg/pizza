@@ -43,21 +43,12 @@ def get_cart_formset( data=None, items=None):
     #CartFormSet = inlineformset_factory(Cart, CartItem, form=CartItemForm, extra=0)
     #CartFormSet = inlineformset_factory(CartForm, CartItem, extra=2)
     if items:
-        print '############ WITH ITEMS '
         kwargs = {'queryset': items, }
         cart_formset = CartFormSet(data, **kwargs)
     else:
-        print '############ WITHOUT ITEMS '
         cart_formset = CartFormSet(data)
     for form in cart_formset:
         for item in items:
-            print '######################## ITEM PK '
-            print item.pk
-            print '#### ITEM QUANTITY '
-            print item.quantity
             if form.instance.pk == item.pk:
-                #data = {'id': item.pk, 'quantity': item.quantity}
                 form.instance = item
-                #form.initial = data
-                #form.initial = item
     return cart_formset

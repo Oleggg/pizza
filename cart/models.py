@@ -11,7 +11,7 @@ class Cart(models.Model):
         super(Cart, self).__init__(*args, **kwargs)
         #items = []
 
-    def add_cartItem(self,product,qty):
+    def add_cart_item(self,product,qty):
         self.save()
         found_item = CartItem.objects.filter(cart = self, product = product)
         if found_item:
@@ -32,22 +32,15 @@ class Cart(models.Model):
     @property
     def total(self):
         totalCost = 0
-        print 'totalCost '
-        print self.items.all()
         for item in self.items.all():
-            print 'item.product.price'
-            print item.product.price
             totalCost += (item.product.price * item.quantity) 
-        print totalCost
         return "%.2f" % float(totalCost)
 
     @property
     def count(self):
         totalCount = 0
-        print 'total count'
         for item in self.items.all():
             totalCount += item.quantity
-        print totalCount
         return totalCount
 
 class CartItem(models.Model):
