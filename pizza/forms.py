@@ -27,7 +27,7 @@ class OrderForm(forms.ModelForm):
             self.formset = OrderItemFormset(request.POST)
         #else:
         #    self.formset = OrderItemFormset()
-        #    self.formset = self.context['cart_formset']
+        #    self.formset = self.context['formset']
 
     def save(self, *args, **kwargs):
         self.instance.deliveryman = Deliveryman.objects.get(name = 'user1')

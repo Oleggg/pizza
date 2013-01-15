@@ -15,6 +15,7 @@ from django.core.urlresolvers import reverse_lazy
 from .forms import OrderForm
 
 from pizza.models import OrderItem
+from pizza.forms import OrderItemFormset
 from pizza.forms import get_order_formset
 from cart.models import Cart
 from cart.views import get_session_cart
@@ -38,17 +39,19 @@ class CreateOrderView(CreateView):
     template_name = 'order.html'
     success_url = reverse_lazy('home')
 
-    #################################
     def get(self, request, **kwargs):
         print '### CALLED GET ###'
         #self.object = User.objects.get(username=self.request.user)
         cart = get_session_cart(self.request)
         print '############ CART ###########'
         print cart
-        order = create_from_cart(cart)
-        print '############ ORDER ###########'
-        print order
-        self.object = order
+        if cart:
+            order = create_from_cart(cart)
+            print '############ ORDER ###########'
+            print order
+            self.object = order
+        else:
+            self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         context = self.get_context_data(object=self.object, form=form)
@@ -102,9 +105,12 @@ class CreateOrderView(CreateView):
     def get_context_data(self, *args, **kwargs):
         context_data = super(CreateOrderView, self).get_context_data(*args, **kwargs)
         #context_data.update({'order': self.order})
-        print "||||||||||||||| SELF.object ||| "
-        print self.object.orderitem_set.all()
-        context_data['formset'] = get_order_formset(items=self.object.orderitem_set.all())
+        #print "||||||||||||||| SELF.object ||| "
+        #print self.object.orderitem_set.all()
+        if self.object:
+            context_data['formset'] = get_order_formset(items=self.object.orderitem_set.all())
+        else:
+            context_data['formset'] = OrderItemFormset()
         print "||||||||||||||| SELF.object ||| "
         print context_data
         return context_data
@@ -133,14 +139,7 @@ create_order = CreateOrderView.as_view()
 
 #def create_from_cart(self, request):
 def create_from_cart(cart):
-    #cart = None
-    #session = getattr(request, 'session', None)
-    #cid = session.get('CART_ID')
-    #if cid:
-    #    cart = Cart.objects.get(pk = cid)
-        #return cart
-        #################################
-        #cart = get_session_cart(request)
+    #cart = get_session_cart(request)
     #order = self.model()
     order = Order()
     order.cost = cart.total
