@@ -5,6 +5,7 @@ from .models import Order, Deliveryman, OrderItem
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from django.forms.models import inlineformset_factory
+from django.forms.models import modelformset_factory
 OrderItemFormset = inlineformset_factory(Order, OrderItem, extra=2)
 
 class CreateOrderForm(forms.Form):
@@ -38,6 +39,29 @@ class OrderForm(forms.ModelForm):
             not self.cleaned_data['address'].strip():
             raise forms.ValidationError('Please fill in address')
         return self.cleaned_data
+
+
+class OrderFromCartForm(forms.ModelForm):
+    city = forms.IntegerField(label = 'City', required=True )
+    address = forms.CharField(label = 'Address', required=True )
+    comment = forms.CharField(label = 'Comment', required=False )
+
+    class Meta:
+        model = Order
+        fields = ( 'city', 'address', 'comment' )
+
+    def save(self, *args, **kwargs):
+        return super(OrderFromCartForm, self).save(*args, **kwargs)
+
+class OrderItemForm(forms.ModelForm):
+    pizza = forms.IntegerField(label = 'Pizza', required=True )
+    quantity = forms.IntegerField(label = u'Количество', required=True )
+
+    class Meta:
+        model = OrderItem
+        fields = ( 'pizza', 'quantity', )
+    def save(self, *args, **kwargs):
+        return super(OrderItemForm, self).save(*args, **kwargs)
 
 def get_order_formset(items=None):
     #CartFormSet = inlineformset_factory(Cart, CartItem, extra=1)
@@ -76,4 +100,10 @@ def get_order_formset(items=None):
                 form.instance = item
                 #form.initial = data
                 #form.initial = item
+    return order_formset
+
+def get_order_from_cart_formset(items=None):
+
+    OrderFormSet = modelformset_factory(OrderItem, form=OrderItemForm, extra=0)
+    order_formset = OrderFormSet()
     return order_formset

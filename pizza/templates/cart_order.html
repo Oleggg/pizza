@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block content %}
+    {% trans "Hello" %}
+    {% blocktrans %}
+        Hello! Please order a piece of pizza and get delivery for free!
+    {% endblocktrans %}
+    <h2>Общая стоимость заказа: {{ form.instance.cost }} руб.</h2>
+    <form action="{% url pizza.views.create_order_cart %}" method="post">
+        {% csrf_token %}
+
+        {{ form.order_formset.management_form }}
+        {% for iform in order_formset.forms %}
+            {{ form.id }}
+            {{ form.instance.product.name }}
+            <div class="form-row">
+                {{ iform.quantity.label_tag }}
+                {{ iform.quantity }}
+                {{ iform.quantity.errors }}
+            </div>
+        {% endfor %}
+
+        <input type="submit" /> 
+    </form>
+{% endblock %}

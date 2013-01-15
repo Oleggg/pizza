@@ -16,7 +16,9 @@ from .forms import OrderForm
 
 from pizza.models import OrderItem
 from pizza.forms import OrderItemFormset
+from pizza.forms import OrderFromCartForm
 from pizza.forms import get_order_formset
+from pizza.forms import get_order_from_cart_formset
 from cart.models import Cart
 from cart.views import get_session_cart
 
@@ -169,3 +171,27 @@ def create_from_cart(cart):
 #     else:
 #         raise Http404
         
+
+class CreateOrderFromCartView(CreateView):
+
+    template_name = 'cart_order.html'
+    form_class = OrderFromCartForm
+    model = Order
+
+    #def get(self, request, **kwargs):
+    #    self.object = Cart.objects.get(pk=self.kwargs['pk'])
+    #    form_class = self.get_form_class()
+    #    form = self.get_form(form_class)
+    #    context = self.get_context_data(object=self.object, form=form)
+    #    return self.render_to_response(context)
+
+    def get_context_data(self, **kwargs):
+        #cart = Cart.objects.get(pk=self.kwargs['pk'])
+        context = super(CreateOrderFromCartView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['order_formset'] = get_order_from_cart_formset(self.request.POST, items=None)
+        else:
+            context['order_formset'] = get_order_from_cart_formset()
+        return context
+
+create_order_cart = CreateOrderFromCartView.as_view()
