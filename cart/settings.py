@@ -6,6 +6,12 @@ TIME_ZONE = 'Europe/Moscow'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'ru'
 
+LANGUAGES = (
+   ('ru', 'Russian'),
+   ('en', 'English'),
+)
+
+
 USE_I18N = True
 
 TEMPLATE_DIRS = (
